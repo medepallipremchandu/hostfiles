@@ -1,0 +1,48 @@
+body{
+	background-color: #fff;
+}
+
+h1, h2, h3, h4, h5, h6{
+	color: black;
+}
+
+p, span, small{
+	color: #888;
+}
+
+hr{
+	margin: 20px;
+	background-color: #eaeaea;
+}
+ 
+a{
+	color: black;
+}
+
+.btn{
+	color: black;
+	background-color: white;
+	border-color: black;
+}
+.btn:hover{
+	color: blue;
+}
+label,textarea{
+	border: black;
+	background-color: transparent;
+}
+
+.navbar-toggler{
+	border-color: black;
+}
+.navbar-toggler-icon {
+    background-image: url('data:image/svg+xml,<svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"><path stroke="rgba(0, 0, 0, 0.5)" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M4 7h22M4 15h22M4 23h22"></path></svg>');
+}
+.footer-basic {
+	color: black;
+	background-color: white;
+}
+.card{
+	border-color: black;
+}
+

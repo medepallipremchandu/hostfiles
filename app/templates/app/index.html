@@ -1,0 +1,546 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ title }}</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <link id="mystylesheet" rel="stylesheet" type="text/css" href="{% static 'light.css' %}">
+    <style>
+      body{
+        overflow-y: scroll;
+      }
+      html, body {
+            height: 100%;
+        }
+        .wrapper {
+            min-height: 100%;
+            position: relative;
+        }
+        .content {
+            padding-bottom: 60px; /* Height of the footer */
+        }
+   
+.footer-basic {
+  position: absolute;
+  padding-top: 20%;
+    bottom: 0;
+    left: 0;
+    width: 100%;    
+    height: 60px;
+    padding: 20px 0;
+    border-top: 1px solid #ccc;
+    text-align: center;
+    line-height: 60px;
+}
+
+.footer-basic ul {
+  padding:0;
+  list-style:none;
+  text-align:center;
+  font-size:18px;
+  line-height:1.6;
+  margin-bottom:0;
+}
+
+.footer-basic li {
+  padding:0 10px;
+}
+
+.footer-basic ul a {
+  color:inherit;
+  text-decoration:none;
+  opacity:0.8;
+}
+
+.footer-basic ul a:hover {
+  opacity:1;
+}
+
+.footer-basic .social {
+  text-align:center;
+  padding-bottom:25px;
+}
+
+.footer-basic .social > a {
+  font-size:24px;
+  width:40px;
+  height:40px;
+  line-height:40px;
+  display:inline-block;
+  text-align:center;
+  border-radius:50%;
+  border:1px solid #ccc;
+  margin:0 8px;
+  opacity:0.75;
+}
+
+.footer-basic .social > a:hover {
+  opacity:0.9;
+}
+
+.footer-basic .copyright {
+  margin-top:15px;
+  text-align:center;
+  font-size:13px;
+  color:#aaa;
+  margin-bottom:0;
+}
+.grid {
+  display: grid;
+  grid-gap: 20px;
+}
+
+.grid-cols-1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.md\:grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.px-10 {
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
+}
+
+.p-8 {
+  padding: 2rem;
+}
+
+.bg-indigo-100 {
+  background-color: #EBF4FF;
+}
+
+.bg-green-100 {
+  background-color: #D1FAE5;
+}
+
+.bg-red-100 {
+  background-color: #FEE2E2;
+}
+
+.rounded-full {
+  border-radius: 9999px;
+}
+
+.w-16 {
+  width: 4rem;
+}
+
+.h-16 {
+  height: 4rem;
+}
+
+.flex {
+  display: flex;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.text-indigo-500 {
+  color: #3B82F6;
+}
+
+.text-green-500 {
+  color: #10B981;
+}
+
+.text-red-500 {
+  color: #EF4444;
+}
+
+.shadow-2xl {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.text-gray-500 {
+  color: #6B7280;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.font-light {
+  font-weight: 300;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.mt-6 {
+  margin-top: 1.5rem;
+}
+
+.mb-3 {
+  margin-bottom: 0.75rem;
+}
+
+.stroke {
+  stroke: #1C274C;
+}
+
+.stroke-width {
+  stroke-width: 1.5;
+}
+
+.stroke-linecap {
+  stroke-linecap: round;
+}
+
+.stroke-linejoin {
+  stroke-linejoin: round;
+}
+
+
+
+* {box-sizing:border-box}
+
+/* Slideshow container */
+.slideshow-container {
+  max-width: 100%;
+  max-height: 20%;
+  position: relative;
+  margin: auto;
+}
+
+/* Hide the images by default */
+.mySlides {
+  display: none;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+/* Caption text */
+.text {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+img {
+  height: 400px;
+}
+    </style>
+    {% if messages %}
+  {% for message in messages %}
+ 
+  <script>
+    alert("{{ message }}");
+  </script>
+ 
+  {% endfor %}
+  {% endif %}
+</head>
+<body>
+  <div class="wrapper">
+    <div class="content">
+  <nav class="navbar navbar-expand-lg btn">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'index' %}">WebSiteName</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavbar" aria-controls="myNavbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="navbar-nav mr-auto">
+                {% if user.is_authenticated %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'add_file' %}">ADD FILE</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'index1' %}">ALL FILES</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'upload_pdf' %}">ADD PDF</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'pdf_list' %}">ALL PDFS</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'upload_image' %}">ADD IMAGE</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'image_list' %}">ALL IMAGES</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">CONTACT US</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">LOGOUT</a></li>
+                {% else %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">SIGN UP</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">LOG IN</a></li>
+                {% endif %}
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <button id="themeToggleButton" class="btn">Light Mode</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+  {% block start %}
+  {% if user.is_authenticated %}
+  <!-- Slideshow container -->
+<div class="slideshow-container">
+
+  <!-- Full-width images with number and caption text -->
+  <div class="mySlides fade">
+    <div class="numbertext">1 / 3</div>
+    <img id="slideshowImage1" src="{% static 'slideshowImage1' %}" style="width:100%">
+    <div class="text"><p>Add Text files</p></div>
+  </div>
+
+  <div class="mySlides fade">
+    <div class="numbertext">2 / 3</div>
+    <img id="slideshowImage2" src="{% static 'slideshowImage2' %}" style="width:100%">
+    <div class="text"><p>Add pdf files</p></div>
+  </div>
+
+  <div class="mySlides fade">
+    <div class="numbertext">3 / 3</div>
+    <img id="slideshowImage3" src="{% static 'slideshowImage3' %}" style="width:100%">
+    <div class="text"><p>Add image files</p></div>
+  </div>
+
+  <!-- Next and previous buttons -->
+  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+  <a class="next" onclick="plusSlides(1)">&#10095;</a>
+</div>
+<br>
+
+<!-- The dots/circles -->
+<div style="text-align:center">
+  <span class="dot" onclick="currentSlide(1)"></span>
+  <span class="dot" onclick="currentSlide(2)"></span>
+  <span class="dot" onclick="currentSlide(3)"></span>
+</div>
+  <center><h1>welcome back {{user.username}}!</h1></center>
+  <center><div>
+    <h1 style="font-size: 50px;">You can post your data and share among anyone</h1></br>
+    <!-- Add Term Button -->
+    <div class="grid grid-cols-1 md:grid-cols-3 px-10">
+    <a href="{% url 'add_file' %}" class="btn">ADD TextFile</a>
+    <a href="{% url 'upload_pdf' %}" class="btn">ADD PdfFile</a>
+    <a href="{% url 'upload_image' %}" class="btn">ADD ImageFile</a>
+  </div>
+  </div></center></br>
+  <div class="grid grid-cols-1 md:grid-cols-3 px-10">
+    <div class="p-8">
+      <div class="bg-indigo-100 rounded-full w-16 h-16 flex justify-center items-center text-indigo-500 shadow-2xl">
+        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9.75 12C9.75 10.7574 10.7574 9.75 12 9.75C13.2426 9.75 14.25 10.7574 14.25 12C14.25 13.2426 13.2426 14.25 12 14.25C10.7574 14.25 9.75 13.2426 9.75 12Z" fill="#1C274C"></path>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M2 12C2 13.6394 2.42496 14.1915 3.27489 15.2957C4.97196 17.5004 7.81811 20 12 20C16.1819 20 19.028 17.5004 20.7251 15.2957C21.575 14.1915 22 13.6394 22 12C22 10.3606 21.575 9.80853 20.7251 8.70433C19.028 6.49956 16.1819 4 12 4C7.81811 4 4.97196 6.49956 3.27489 8.70433C2.42496 9.80853 2 10.3606 2 12ZM12 8.25C9.92893 8.25 8.25 9.92893 8.25 12C8.25 14.0711 9.92893 15.75 12 15.75C14.0711 15.75 15.75 14.0711 15.75 12C15.75 9.92893 14.0711 8.25 12 8.25Z" fill="#1C274C"></path>
+        </svg>
+
+      </div>
+      <h2 class="uppercase mt-6 text-indigo-500 font-medium mb-3">
+        Privacy Policy Hosting
+      </h2>
+      <p class="font-light text-sm text-gray-500 mb-3">
+        Seamlessly host your privacy policies for free on our platform. Ensure compliance with legal regulations and
+        provide transparency to your users regarding data handling practices.
+      </p>
+
+    </div>
+
+    <div class="p-8">
+      <div class="bg-green-100 rounded-full w-16 h-16 flex justify-center items-center text-green-500 shadow-2xl">
+        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15.197 3.35462C16.8703 1.67483 19.4476 1.53865 20.9536 3.05046C22.4596 4.56228 22.3239 7.14956 20.6506 8.82935L18.2268 11.2626M10.0464 14C8.54044 12.4882 8.67609 9.90087 10.3494 8.22108L12.5 6.06212" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"></path>
+          <path d="M13.9536 10C15.4596 11.5118 15.3239 14.0991 13.6506 15.7789L11.2268 18.2121L8.80299 20.6454C7.12969 22.3252 4.55237 22.4613 3.0464 20.9495C1.54043 19.4377 1.67609 16.8504 3.34939 15.1706L5.77323 12.7373" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"></path>
+        </svg>
+
+      </div>
+      <h2 class="uppercase mt-6 text-green-500 font-medium mb-3">
+        Shareable Links
+      </h2>
+      <p class="font-light text-sm text-gray-500 mb-3">
+        Generate secure and unique shareable links for your hosted privacy policies. Easily distribute these links to
+        stakeholders, customers, or embed them on your website to enhance accessibility and transparency.
+      </p>
+
+    </div>
+    <div class="p-8">
+      <div class="bg-red-100 rounded-full w-16 h-16 flex justify-center items-center text-red-500 shadow-2xl">
+        <svg class="w-8 h-8" viewBox="0 -0.5 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M17.7 5.12758L19.266 6.37458C19.4172 6.51691 19.5025 6.71571 19.5013 6.92339C19.5002 7.13106 19.4128 7.32892 19.26 7.46958L18.07 8.89358L14.021 13.7226C13.9501 13.8037 13.8558 13.8607 13.751 13.8856L11.651 14.3616C11.3755 14.3754 11.1356 14.1751 11.1 13.9016V11.7436C11.1071 11.6395 11.149 11.5409 11.219 11.4636L15.193 6.97058L16.557 5.34158C16.8268 4.98786 17.3204 4.89545 17.7 5.12758Z" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M12.033 7.61865C12.4472 7.61865 12.783 7.28287 12.783 6.86865C12.783 6.45444 12.4472 6.11865 12.033 6.11865V7.61865ZM9.23301 6.86865V6.11865L9.23121 6.11865L9.23301 6.86865ZM5.50001 10.6187H6.25001L6.25001 10.617L5.50001 10.6187ZM5.50001 16.2437L6.25001 16.2453V16.2437H5.50001ZM9.23301 19.9937L9.23121 20.7437H9.23301V19.9937ZM14.833 19.9937V20.7437L14.8348 20.7437L14.833 19.9937ZM18.566 16.2437H17.816L17.816 16.2453L18.566 16.2437ZM19.316 12.4937C19.316 12.0794 18.9802 11.7437 18.566 11.7437C18.1518 11.7437 17.816 12.0794 17.816 12.4937H19.316ZM15.8863 6.68446C15.7282 6.30159 15.2897 6.11934 14.9068 6.2774C14.5239 6.43546 14.3417 6.87397 14.4998 7.25684L15.8863 6.68446ZM18.2319 9.62197C18.6363 9.53257 18.8917 9.13222 18.8023 8.72777C18.7129 8.32332 18.3126 8.06792 17.9081 8.15733L18.2319 9.62197ZM8.30001 16.4317C7.8858 16.4317 7.55001 16.7674 7.55001 17.1817C7.55001 17.5959 7.8858 17.9317 8.30001 17.9317V16.4317ZM15.767 17.9317C16.1812 17.9317 16.517 17.5959 16.517 17.1817C16.517 16.7674 16.1812 16.4317 15.767 16.4317V17.9317ZM12.033 6.11865H9.23301V7.61865H12.033V6.11865ZM9.23121 6.11865C6.75081 6.12461 4.7447 8.13986 4.75001 10.6203L6.25001 10.617C6.24647 8.96492 7.58269 7.62262 9.23481 7.61865L9.23121 6.11865ZM4.75001 10.6187V16.2437H6.25001V10.6187H4.75001ZM4.75001 16.242C4.7447 18.7224 6.75081 20.7377 9.23121 20.7437L9.23481 19.2437C7.58269 19.2397 6.24647 17.8974 6.25001 16.2453L4.75001 16.242ZM9.23301 20.7437H14.833V19.2437H9.23301V20.7437ZM14.8348 20.7437C17.3152 20.7377 19.3213 18.7224 19.316 16.242L17.816 16.2453C17.8195 17.8974 16.4833 19.2397 14.8312 19.2437L14.8348 20.7437ZM19.316 16.2437V12.4937H17.816V16.2437H19.316ZM14.4998 7.25684C14.6947 7.72897 15.0923 8.39815 15.6866 8.91521C16.2944 9.44412 17.1679 9.85718 18.2319 9.62197L17.9081 8.15733C17.4431 8.26012 17.0391 8.10369 16.6712 7.7836C16.2897 7.45165 16.0134 6.99233 15.8863 6.68446L14.4998 7.25684ZM8.30001 17.9317H15.767V16.4317H8.30001V17.9317Z" fill="#1C274C"></path>
+        </svg>
+
+      </div>
+      <h2 class="uppercase mt-6 text-red-500 font-medium mb-3">
+        Intuitive User Interface
+      </h2>
+      <p class="font-light text-sm text-gray-500 mb-3">
+        Enjoy a clean and user-friendly interface designed for simplicity and ease of use. Our platform prioritizes user
+        experience, allowing you to effortlessly upload, manage, and share your privacy policies with just a few clicks.
+      </p>
+
+    </div>
+  </div>
+  {% else %}
+  <center><h1>log in, plz . . .</h1></center>
+  {% endif %}
+  {% endblock start %}
+</div>
+
+<div class="footer-basic">
+  <footer>
+      <div class="social"><a href="#"><i class="icon ion-social-instagram"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-facebook"></i></a></div>
+      <ul class="list-inline">
+          <li class="list-inline-item"><a href="{% url 'index' %}">Home</a></li>
+          <li class="list-inline-item"><a href="{% url 'services' %}">Services</a></li>
+          <li class="list-inline-item"><a href="{% url 'about' %}">About</a></li>
+          <li class="list-inline-item"><a href="{% url 'terms' %}">Terms</a></li>
+          <li class="list-inline-item"><a href="{% url 'privacypolicy' %}">Privacy Policy</a></li>
+      </ul>
+      <p class="copyright">Company Name © 20XX</p>
+  </footer>
+</div>
+</div>
+
+
+<script type="text/javascript">
+  var themeToggleButton = document.getElementById('themeToggleButton');
+  var currentTheme = sessionStorage.getItem('theme') || 'light'; // Default to light theme
+
+  themeToggleButton.addEventListener('click', function() {
+      if (currentTheme === 'light') {
+          swapStyle('{% static "dark.css" %}');
+          themeToggleButton.textContent = 'Dark Mode';
+          currentTheme = 'dark';
+          changeImagesToDarkMode();
+      } else {
+          swapStyle('{% static "light.css" %}');
+          themeToggleButton.textContent = 'Light Mode';
+          currentTheme = 'light';
+          changeImagesToLightMode();
+      }
+      sessionStorage.setItem('theme', currentTheme); // Store theme preference in session storage
+  });
+
+  function swapStyle(sheet){
+      document.getElementById('mystylesheet').href = sheet;
+  }
+  
+  // Set initial theme based on session storage
+  if (currentTheme === 'dark') {
+      swapStyle('{% static "dark.css" %}');
+      themeToggleButton.textContent = 'Dark Mode';
+      changeImagesToDarkMode();
+  } else {
+      swapStyle('{% static "light.css" %}');
+      themeToggleButton.textContent = 'Light Mode';
+      changeImagesToLightMode();
+  }
+
+  // Function to change images to dark mode
+  function changeImagesToDarkMode() {
+      document.getElementById('slideshowImage1').src = '{% static "images/img1.PNG" %}';
+      document.getElementById('slideshowImage2').src = '{% static "images/img2.PNG" %}';
+      document.getElementById('slideshowImage3').src = '{% static "images/img3.PNG" %}';
+  }
+
+  // Function to change images to light mode
+  function changeImagesToLightMode() {
+      document.getElementById('slideshowImage1').src = '{% static "images/img4.PNG" %}';
+      document.getElementById('slideshowImage2').src = '{% static "images/img5.PNG" %}';
+      document.getElementById('slideshowImage3').src = '{% static "images/img6.PNG" %}';
+  }
+
+  let slideIndex = 0;
+showSlides();
+
+function showSlides() {
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  slideIndex++;
+  if (slideIndex > slides.length) {slideIndex = 1}
+  slides[slideIndex-1].style.display = "block";
+  setTimeout(showSlides, 2500); // Change image every 2 seconds
+}
+</script>
+
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!-- contact.html -->
+{% extends 'app/index.html' %}
+{% block start %}
+</br></br>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-ybNs1EtOb3dz+ffsIJGqWAvfcWeFy1cV10K19+fYP3AqO86mtS9vumSMU7Bw9l1zBukVPYSGmlnjONSTl4iN5A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Flex container */
+        /* Horizontally center the content */
+        .justify-center {
+            justify-content: center;
+        }
+
+        /* Vertically center the content */
+        .items-center {
+            align-items: center;
+        }
+
+        /* Add padding on the x-axis */
+        .flex {
+            display: flex;
+            justify-content: center; /* Horizontally center the content */
+            align-items: center; /* Vertically center the content */
+            border: 1px solid #ced4da; /* Add border */
+        }
+
+        /* Container styles */
+        .container {
+            width: 100%; /* Full width */
+            max-width: 1200px; /* Maximum width for larger screens */
+            padding: 20px; /* Add padding */
+            
+            border-radius: 5px; /* Add border radius */
+            box-sizing: border-box; /* Include padding and border in the width */
+            overflow: hidden; /* Prevent content overflow */
+        }
+
+        /* Left section styles */
+        .left-section {
+            width: 50%; /* Take up 50% of the container */
+            padding-right: 20px; /* Add some space to the right */
+            box-sizing: border-box; /* Include padding and border in the width */
+        }
+
+        /* Right section styles */
+        .right-section {
+            width: 50%; /* Take up 50% of the container */
+            padding-left: 20px; /* Add some space to the left */
+            box-sizing: border-box; /* Include padding and border in the width */
+        }
+
+        /* Style for the label */
+        .label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        /* Style for the input */
+        .input {
+            background-color: transparent;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+            font-size: 14px;
+            padding: 10px;
+            width: 100%;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+        /* Focus styles for the input */
+        .input:focus {
+            border-color: #80bdff;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+
+        /* Additional styles */
+        .contact-list {
+            list-style-type: none;
+            margin-left: -30px;
+            padding-right: 20px;
+        }
+
+        .list-item {
+            line-height: 4;
+            color: #aaa;
+        }
+
+        .contact-text {
+            font: 300 18px 'Lato', sans-serif;
+            letter-spacing: 1.9px;
+            color: #bbb;
+        }
+
+        .place {
+            margin-left: 62px;
+        }
+
+        .phone {
+            margin-left: 56px;
+        }
+
+        .gmail {
+            margin-left: 53px;
+        }
+
+        .contact-text a {
+            color: #bbb;
+            text-decoration: none;
+            transition-duration: 0.2s;
+        }
+
+        .contact-text a:hover {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        /* Social Media Icons */
+        .social-media-list {
+            position: relative;
+            font-size: 22px;
+            text-align: center;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0;
+        }
+
+.social {
+  text-align:center;
+  padding-bottom:25px;
+}
+
+.social > a {
+  font-size:24px;
+  width:40px;
+  height:40px;
+  line-height:40px;
+  display:inline-block;
+  text-align:center;
+  border-radius:50%;
+  border:1px solid #ccc;
+  margin:0 8px;
+  opacity:0.75;
+}
+
+.social > a:hover {
+  opacity:0.9;
+}
+
+        .copyright {
+            font: 200 14px 'Oswald', sans-serif;
+            color: #555;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="content">
+        <div class="container flex">
+            <!-- Left Section (Form) -->
+            <div class="left-section">
+                <form method="post" class="form-horizontal">
+                    {% csrf_token %}         
+                    <h3>Contact Us</h3>
+                    <div class="mb-3">
+                        <label for="id_title" class="label">Name:</label>
+                        <input type="text" id="name" name="name" placeholder="Enter your name" class="input" required>
+                    </div>
+                    <div>
+                        <label for="id_email" class="label">Email:</label>
+                        <input type="email" id="email" name="email"  class="input" placeholder="Enter your email" required>
+                    </div>    
+                    <div>
+                        <label for="id_message" class="label">Message:</label>
+                        <textarea id="id_message" name="message" placeholder="Enter your message here...." rows="10" class="input" required></textarea>
+                    </div>
+                    <button type="submit" class="btn">Send</button>
+                </form>
+            </div>
+
+            <!-- Right Section (Remaining Content) -->
+            <div class="right-section">
+                <div class="direct-contact-container">
+                    <ul class="contact-list">
+                        <li class="list-item"><i class="fa fa-map-marker fa-2x"><span class="contact-text place">City, State</span></i></li>
+                        <li class="list-item"><i class="fa fa-phone fa-2x"><span class="contact-text phone"><a href="tel:xxxxxxxxxx" title="Give me a call">xxxxxxxxxx</a></span></i></li>
+                        <li class="list-item"><i class="fa fa-envelope fa-2x"><span class="contact-text gmail"><a href="mailto:#" title="Send me an email">example@gmail.com</a></span></i></li>
+                    </ul>
+                    <hr>
+                    <ul class="social-media-list">
+                      <div class="social"><a href="#"><i class="icon ion-social-instagram"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-facebook"></i></a></div>
+                    </ul>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</body>
+</html>
+
+{% endblock start %}

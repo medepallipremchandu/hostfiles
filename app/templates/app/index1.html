@@ -1,0 +1,253 @@
+{% extends "app/index.html" %}
+{% load crispy_forms_tags %}
+{% block start %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <style>
+        /* Your CSS styles here */
+        /* Style for the container */
+        .inline-flex-group {
+            display: inline-flex;
+            gap: 0.5rem; /* Adjust the gap between buttons as needed */
+        }
+
+        /* Style for the buttons */
+        .inline-flex-group a,
+        .inline-flex-group button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem 1rem; /* Adjust padding as needed */
+            font-size: 0.875rem; /* Adjust font size as needed */
+            font-weight: 500;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.375rem;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        /* Hover state for buttons */
+        .inline-flex-group a:hover,
+        .inline-flex-group button:hover { /* Adjust hover background color as needed */
+            color: #10b981; /* Adjust hover text color as needed */
+        }
+
+        /* Style for the delete button icon */
+        .delete-btn svg {
+            width: 1rem; /* Adjust icon size as needed */
+            height: 1rem; /* Adjust icon size as needed */
+            margin-right: 0.5rem; /* Adjust margin as needed */
+        }
+
+        /* Additional styles for specific buttons */
+        .delete-btn {
+            color: #c53030; /* Adjust delete button text color */
+        }
+
+        /* Style for the delete button icon on hover */
+        .delete-btn:hover svg {
+            stroke: #c53030; /* Adjust delete button icon color on hover */
+        }
+
+        
+
+        .view-btn svg {
+            width: 1rem; /* Adjust icon size as needed */
+            height: 1rem; /* Adjust icon size as needed */
+            margin-right: 0.5rem; /* Adjust margin as needed */
+        }
+
+        /* Additional styles for specific buttons */
+        .view-btn {
+            color: #c53030;
+        }
+
+        /* Style for the delete button icon on hover */
+        .view-btn:hover svg {
+            stroke: #c53030; /* Adjust delete button icon color on hover */
+        }
+
+
+
+
+        .edit-btn svg {
+            width: 1rem; /* Adjust icon size as needed */
+            height: 1rem; /* Adjust icon size as needed */
+            margin-right: 0.5rem; /* Adjust margin as needed */
+        }
+
+        /* Additional styles for specific buttons */
+        .edit-btn {
+            color: #c53030;
+        }
+
+        /* Style for the delete button icon on hover */
+        .edit-btn:hover svg {
+            stroke: #c53030; /* Adjust delete button icon color on hover */
+        }
+
+        /* Define card layout */
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .card {
+            flex: 0 1 calc(50% - 0.5rem);
+            /* Adjust card width and margin as needed */
+            border-radius: 0.375rem;
+        }
+
+        .card-body {
+            padding: 1rem;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .url-container {
+    display: flex;
+    align-items: center;
+    overflow-x: auto; /* Enable horizontal scrolling */
+    border: 1px solid whitesmoke;
+    border-radius: 0.375rem;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem; /* Adjust margin as needed */
+}
+
+.url-content {
+    flex: 1; /* Allow URL to take remaining space */
+    overflow-x: auto; /* Enable horizontal scrolling */
+}
+
+.copy-btn {
+    margin-left: 0.5rem; /* Add margin to separate from URL */
+    padding: 0.5rem 1rem;
+    border-color: whitesmoke;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+        /* Adjust other card styles as needed */
+    </style>
+</head>
+<body>
+    <div class="container">
+    <div class="wrapper">
+        <div class="content">
+    <h1>All Files</h1>
+    <div class="card-container">
+        {% if user_files %}
+            {% for file in user_files %}
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">{{ file.title }}</h2>
+                        {% if file.public_url %}
+                        <div class="url-container">
+                                <p>{{ request.scheme }}://{{ request.get_host }}/file/{{ file.public_url }}/</p>
+                                <button class="copy-btn btn inline-flex items-center px-4 py-6 text-sm font-medium rounded-s-lg hover:text-green-500 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:focus:ring-blue-500" data-url="{{ request.scheme }}://{{ request.get_host }}/file/{{ file.public_url }}/">
+                                    Copy Link
+                                </button>
+                            </div>
+                        {% else %}
+                            <p class="no-public-url">No public URL available</p>
+                        {% endif %}
+                    </div>
+                <div class="px-5 py-2 inline-flex rounded-md shadow-sm mt-2" role="group">
+                    <button type="button"  onclick="window.location.href='{% url 'file_detail' public_url=file.public_url %}'" class="view-btn btn inline-flex items-center px-4 py-6 text-sm font-medium   rounded-s-lg  hover:text-green-500 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700  dark:focus:ring-blue-500 ">
+                      <svg class=" view-btn w-6 h-6 me-3 text-red-800" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9.75 12C9.75 10.7574 10.7574 9.75 12 9.75C13.2426 9.75 14.25 10.7574 14.25 12C14.25 13.2426 13.2426 14.25 12 14.25C10.7574 14.25 9.75 13.2426 9.75 12Z" fill="#2f85"></path>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M2 12C2 13.6394 2.42496 14.1915 3.27489 15.2957C4.97196 17.5004 7.81811 20 12 20C16.1819 20 19.028 17.5004 20.7251 15.2957C21.575 14.1915 22 13.6394 22 12C22 10.3606 21.575 9.80853 20.7251 8.70433C19.028 6.49956 16.1819 4 12 4C7.81811 4 4.97196 6.49956 3.27489 8.70433C2.42496 9.80853 2 10.3606 2 12ZM12 8.25C9.92893 8.25 8.25 9.92893 8.25 12C8.25 14.0711 9.92893 15.75 12 15.75C14.0711 15.75 15.75 14.0711 15.75 12C15.75 9.92893 14.0711 8.25 12 8.25Z" fill="#2f85"></path>
+                      </svg>
+                      View
+                    </button>
+                    <button type="button"  onclick="window.location.href='{% url 'edit_file' file.id %}'" class="edit-btn btn inline-flex items-center px-4 py-6 text-sm font-medium hover:text-green-500 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700  dark:focus:ring-blue-500 ">
+                      <svg class="edit-btn w-6 h-6 me-3" viewBox="0 -0.5 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M17.7 5.12758L19.266 6.37458C19.4172 6.51691 19.5025 6.71571 19.5013 6.92339C19.5002 7.13106 19.4128 7.32892 19.26 7.46958L18.07 8.89358L14.021 13.7226C13.9501 13.8037 13.8558 13.8607 13.751 13.8856L11.651 14.3616C11.3755 14.3754 11.1356 14.1751 11.1 13.9016V11.7436C11.1071 11.6395 11.149 11.5409 11.219 11.4636L15.193 6.97058L16.557 5.34158C16.8268 4.98786 17.3204 4.89545 17.7 5.12758Z" stroke="blue" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M12.033 7.61865C12.4472 7.61865 12.783 7.28287 12.783 6.86865C12.783 6.45444 12.4472 6.11865 12.033 6.11865V7.61865ZM9.23301 6.86865V6.11865L9.23121 6.11865L9.23301 6.86865ZM5.50001 10.6187H6.25001L6.25001 10.617L5.50001 10.6187ZM5.50001 16.2437L6.25001 16.2453V16.2437H5.50001ZM9.23301 19.9937L9.23121 20.7437H9.23301V19.9937ZM14.833 19.9937V20.7437L14.8348 20.7437L14.833 19.9937ZM18.566 16.2437H17.816L17.816 16.2453L18.566 16.2437ZM19.316 12.4937C19.316 12.0794 18.9802 11.7437 18.566 11.7437C18.1518 11.7437 17.816 12.0794 17.816 12.4937H19.316ZM15.8863 6.68446C15.7282 6.30159 15.2897 6.11934 14.9068 6.2774C14.5239 6.43546 14.3417 6.87397 14.4998 7.25684L15.8863 6.68446ZM18.2319 9.62197C18.6363 9.53257 18.8917 9.13222 18.8023 8.72777C18.7129 8.32332 18.3126 8.06792 17.9081 8.15733L18.2319 9.62197ZM8.30001 16.4317C7.8858 16.4317 7.55001 16.7674 7.55001 17.1817C7.55001 17.5959 7.8858 17.9317 8.30001 17.9317V16.4317ZM15.767 17.9317C16.1812 17.9317 16.517 17.5959 16.517 17.1817C16.517 16.7674 16.1812 16.4317 15.767 16.4317V17.9317ZM12.033 6.11865H9.23301V7.61865H12.033V6.11865ZM9.23121 6.11865C6.75081 6.12461 4.7447 8.13986 4.75001 10.6203L6.25001 10.617C6.24647 8.96492 7.58269 7.62262 9.23481 7.61865L9.23121 6.11865ZM4.75001 10.6187V16.2437H6.25001V10.6187H4.75001ZM4.75001 16.242C4.7447 18.7224 6.75081 20.7377 9.23121 20.7437L9.23481 19.2437C7.58269 19.2397 6.24647 17.8974 6.25001 16.2453L4.75001 16.242ZM9.23301 20.7437H14.833V19.2437H9.23301V20.7437ZM14.8348 20.7437C17.3152 20.7377 19.3213 18.7224 19.316 16.242L17.816 16.2453C17.8195 17.8974 16.4833 19.2397 14.8312 19.2437L14.8348 20.7437ZM19.316 16.2437V12.4937H17.816V16.2437H19.316ZM14.4998 7.25684C14.6947 7.72897 15.0923 8.39815 15.6866 8.91521C16.2944 9.44412 17.1679 9.85718 18.2319 9.62197L17.9081 8.15733C17.4431 8.26012 17.0391 8.10369 16.6712 7.7836C16.2897 7.45165 16.0134 6.99233 15.8863 6.68446L14.4998 7.25684ZM8.30001 17.9317H15.767V16.4317H8.30001V17.9317Z" fill="blue"></path>
+                      </svg>
+                      Edit
+                    </button>
+                    <button type="button" data-modal-target="popup-modal" data-modal-toggle="popup-modal" data-id="35ff1d45-1046-47de-8bba-90d87b473e8a" class="delete-btn btn inline-flex items-center px-4 py-6 text-sm font-medium       hover:text-green-500 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700      dark:focus:ring-blue-500" data-title="{{ file.title }}"data-url="{% url 'delete_file' file.id %}">
+                      <svg class="w-6 h-6 me-3" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 7H20" stroke="#c53030" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M6 10L7.70141 19.3578C7.87432 20.3088 8.70258 21 9.66915 21H14.3308C15.2974 21 16.1257 20.3087 16.2986 19.3578L18 10" stroke="#c53030" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z" stroke="#c53030" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                      </svg>
+                      Delete
+                    </button>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No files found.</p>
+    {% endif %}
+</div>
+        </div></div></div>
+<script>
+    // Get all delete buttons
+    var deleteButtons = document.querySelectorAll('.delete-btn');
+
+    // Add click event listener to each delete button
+    deleteButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            var title = button.getAttribute('data-title');
+            var deleteUrl = button.getAttribute('data-url');
+            confirmDelete(title, deleteUrl);
+        });
+    });
+
+    function confirmDelete(title, deleteUrl) {
+        var confirmation = confirm("Are you sure you want to delete '" + title + "'?");
+        if (confirmation) {
+            // Send a POST request to the delete URL
+            var formData = new FormData();
+            formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', deleteUrl, true);
+            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    // Reload the page or perform any other action
+                    location.reload();
+                } else {
+                    console.error('Error:', xhr.statusText);
+                    // Handle errors if necessary
+                }
+            };
+            xhr.send(formData);
+        }
+    }
+
+    // Copy button functionality
+    var copyButtons = document.querySelectorAll('.copy-btn');
+
+        copyButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                var url = button.getAttribute('data-url');
+                copyToClipboard(url);
+            });
+        });
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text)
+                .then(function () {
+                    alert('URL copied to clipboard!');
+                })
+                .catch(function (error) {
+                    console.error('Copy failed: ', error);
+                    alert('Failed to copy URL to clipboard!');
+                });
+        }
+</script>
+</body>
+</html>
+{% endblock start %}

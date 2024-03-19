@@ -1,0 +1,85 @@
+{% extends 'app/index.html' %}
+{% load crispy_forms_tags %}
+{% block start %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{ title }}</title>
+    <style>
+        /* Flex container */
+        /* Horizontally center the content */
+        .justify-center {
+            justify-content: center;
+        }
+
+        /* Vertically center the content */
+        .items-center {
+            align-items: center;
+        }
+
+        /* Add padding on the x-axis */
+        .flex {
+            display: flex;
+            justify-content: center; /* Horizontally center the content */
+            align-items: center; /* Vertically center the content */
+        }
+
+        /* Container styles */
+        .container {
+            width: 100%; /* Full width */
+            max-width: 500px; /* Maximum width for larger screens */
+            padding-top: 3%;
+        }
+
+        /* Style for the label */
+        .label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        /* Style for the input */
+        .input {
+            background-color: transparent;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+            font-size: 14px;
+            padding: 10px;
+            width: 100%;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+        /* Focus styles for the input */
+        .input:focus {
+            border-color: #80bdff;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="content">
+    <div class="flex">
+        <div class="container">
+            <form method="post" enctype="multipart/form-data">
+                <h2>Upload PDF</h2>
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="id_title" class="label">File Name:</label>
+                    <input type="text" id="id_title" name="title" class="input" placeholder="Enter your filename" required>
+                </div>
+                <div class="mb-3">
+                    <label for="id_pdf_file" class="label">PDF File:</label>
+                    <input type="file" id="id_pdf_file" name="pdf_file" class="input" placeholder="Upload your file" required>
+                </div>
+                <button type="submit" class="btn">Publish PDF</button>
+            </form>
+        </div>
+    </div>
+        </div></div>
+</section>
+</body>
+</html>
+{% endblock start %}

@@ -1,0 +1,87 @@
+{% extends 'app/index.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+{% block start %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <style>
+                /* Flex container */
+        /* Horizontally center the content */
+        .justify-center {
+            justify-content: center;
+        }
+
+        /* Vertically center the content */
+        .items-center {
+            align-items: center;
+        }
+
+        /* Add padding on the x-axis */
+        .flex {
+            display: flex;
+            justify-content: center; /* Horizontally center the content */
+            align-items: center; /* Vertically center the content */
+        }
+
+        /* Container styles */
+        .container {
+            width: 100%; /* Full width */
+            max-width: 500px; /* Maximum width for larger screens */
+            padding-top: 3%;
+        }
+
+        /* Style for the label */
+        .label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        /* Style for the input */
+        .input {
+            background-color: transparent;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+            font-size: 14px;
+            padding: 10px;
+            width: 100%;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+        /* Focus styles for the input */
+        .input:focus {
+            border-color: #80bdff;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+    </style>
+</head>
+<body>    
+    <div class="wrapper">
+    <div class="content">
+<div class="flex">
+<div class="container">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %} 
+        <h2>Upload Image</h2>
+        <div class="mb-3">
+            <label for="id_name" class="label">Name:</label>
+            <input type="text" id="id_name" name="name" class="input" placeholder="Enter your imagename" required>
+        </div>
+        <div class="mb-3">
+            <label for="id_image" class="label">Image File:</label>
+            <input type="file" id="id_image_file" name="image_file" class="input" placeholder="Upload your image" required>
+        </div>
+        <button class="btn" type="submit">Upload</button>
+    </form>
+</div></div></div></div>
+</body>
+</html>
+{% endblock start %}

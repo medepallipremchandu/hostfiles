@@ -1,0 +1,122 @@
+{% extends "app/index.html" %}
+{% load crispy_forms_tags %}
+{% block start %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <style>
+        /* Your CSS styles here */
+        /* Define card layout */
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .card {
+            flex: 0 1 calc(50% - 0.5rem); /* Adjust card width */
+            border-radius: 0.375rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .card-body {
+            padding: 1rem;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .delete-btn {
+            color: #c53030; /* Adjust delete button text color */
+        }
+
+        .delete-btn:hover {
+            color: #fff;
+            background-color: #c53030; /* Adjust delete button background color on hover */
+        }
+
+        .edit-btn {
+            color: #3182ce; /* Adjust edit button text color */
+        }
+
+        .edit-btn:hover {
+            color: #fff;
+            background-color: #3182ce; /* Adjust edit button background color on hover */
+        }
+
+        .download-btn {
+            color: #10b981; /* Adjust download button text color */
+        }
+
+        .download-btn:hover {
+            color: #fff;
+            background-color: #10b981; 
+        }/* Adjust download button background color on hover */
+
+    </style>
+</head>
+<body>
+    <div class="container">
+    <div class="wrapper">
+        <div class="content">
+    <h1>All Images</h1>
+    <div class="card-container">
+        {% for image in images %}
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">{{ image.name }}</h2>
+                        <p>public url: {{ request.scheme }}://{{ request.get_host }}{{ image.image_file.url }}</p>
+                        <button class="copy-btn btn inline-flex items-center px-4 py-6 text-sm font-medium rounded-s-lg hover:text-green-500 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:focus:ring-blue-500" data-url="{{ request.scheme }}://{{ request.get_host }}{{ image.image_file.url }}">
+                            Copy Link
+                        </button>       
+                    <div style="padding-top: 10px; padding-bottom: 10px;"> <img src="{{ image.image_file.url }}" alt="{{ image.name }}" style="width: 100%;"/></div>
+                    <div class="btn-group">
+                        <form action="{% url 'delete_image' image.id %}" method="post" id="delete-form-{{ image.id }}">
+                            {% csrf_token %}
+                            <button type="button" class="delete-btn btn" onclick="confirmDelete('{{ image.name }}', 'delete-form-{{ image.id }}')">Delete</button>
+                        </form>
+                        <a href="{% url 'edit_image' image.id %}" class="edit-btn btn">Edit</a>
+                        <a href="{{ image.image_file.url }}" class="download-btn btn" download>Download</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+        </div></div></div>
+    <script>
+        function confirmDelete(name, formId) {
+            var confirmation = confirm("Are you sure you want to delete '" + name + "'?");
+            if (confirmation) {
+                document.getElementById(formId).submit();
+            }
+        }
+        var copyButtons = document.querySelectorAll('.copy-btn');
+
+copyButtons.forEach(function (button) {
+    button.addEventListener('click', function () {
+        var url = button.getAttribute('data-url');
+        copyToClipboard(url);
+    });
+});
+
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text)
+        .then(function () {
+            alert('URL copied to clipboard!');
+        })
+        .catch(function (error) {
+            console.error('Copy failed: ', error);
+            alert('Failed to copy URL to clipboard!');
+        });
+}
+    </script>
+</body>
+</html>
+{% endblock %}
