@@ -47,6 +47,8 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -54,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 ROOT_URLCONF = 'Project.urls'
 
@@ -82,10 +85,10 @@ WSGI_APPLICATION = 'Project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'hostfiles',
+        'NAME': 'hostsite$hostfiles',
         'USER': 'hostsite',
         'PASSWORD': 'Jesus@25',
-        'HOST': 'localhost',  # Or your MySQL host address
+        'HOST': 'hostsite.mysql.pythonanywhere-services.com',  # Or your MySQL host address
         'PORT': '3306', 
     }
 }
