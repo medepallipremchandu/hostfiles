@@ -87,7 +87,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'hostsite$hostfiles',
         'USER': 'hostsite',
-        'PASSWORD': 'Jesus@25',
+        'PASSWORD': '******',
         'HOST': 'hostsite.mysql.pythonanywhere-services.com',  # Or your MySQL host address
         'PORT': '3306', 
     }
@@ -143,4 +143,4 @@ EMAIL_HOST = 'smtp.gmail.com'  # Example: 'smtp.gmail.com'
 EMAIL_PORT = 587  # Example: 587 for TLS
 EMAIL_USE_TLS = True  # Set to True if using TLS
 EMAIL_HOST_USER = '2000031715cse@gmail.com'  # Your email address
-EMAIL_HOST_PASSWORD = 'fktz ejdl qdcc sczz'  # Your email password or app password
+EMAIL_HOST_PASSWORD = '******'  # Your email password or app password
